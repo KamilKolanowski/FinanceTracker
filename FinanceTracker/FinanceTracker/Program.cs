@@ -1,21 +1,45 @@
 ﻿using Avalonia;
 using System;
+using System.Threading.Tasks;
+using FinanceTracker.Services;
 
-namespace FinanceTracker;
-
-class Program
+namespace FinanceTracker
 {
-    // Initialization code. Don't use any Avalonia, third-party APIs or any
-    // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
-    // yet and stuff might break.
-    [STAThread]
-    public static void Main(string[] args) => BuildAvaloniaApp()
-        .StartWithClassicDesktopLifetime(args);
+    class Program
+    {
+        [STAThread]
+        public static void Main(string[] args)
+        {
+            // Run async logic before starting UI
+            Task.Run(async () => await RunApiTest()).GetAwaiter().GetResult();
 
-    // Avalonia configuration, don't remove; also used by visual designer.
-    public static AppBuilder BuildAvaloniaApp()
-        => AppBuilder.Configure<App>()
-            .UsePlatformDetect()
-            .WithInterFont()
-            .LogToTrace();
+            // Start Avalonia app
+            BuildAvaloniaApp()
+                .StartWithClassicDesktopLifetime(args);
+        }
+
+        public static AppBuilder BuildAvaloniaApp()
+            => AppBuilder.Configure<App>()
+                .UsePlatformDetect()
+                .WithInterFont()
+                .LogToTrace();
+
+        private static async Task RunApiTest()
+        {
+            var api = new ExpensesApi();
+            try
+            {
+                var result = await api.GetExpensesAsync();
+                foreach (var expense in result)
+                {
+                    Console.WriteLine(expense.ExpenseDate.ToString("dd/MM/yyyy HH:mm:ss"));
+                }
+                Console.WriteLine(result);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("API call failed: " + ex.Message);
+            }
+        }
+    }
 }
