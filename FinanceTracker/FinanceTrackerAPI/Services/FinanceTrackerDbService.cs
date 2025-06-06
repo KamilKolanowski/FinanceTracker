@@ -14,6 +14,10 @@ public class FinanceTrackerDbService
         _context = context;
     }
 
+    internal async Task<IEnumerable<Expense>> GetExpenses()
+    {
+        return await _context.Expenses.ToListAsync();
+    }
     internal async Task<Expense?> GetExpense(int id)
     {
         return await _context.Expenses.FindAsync(id);

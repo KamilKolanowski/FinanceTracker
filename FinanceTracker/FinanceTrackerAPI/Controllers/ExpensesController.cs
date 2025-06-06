@@ -1,6 +1,7 @@
 using FinanceTrackerAPI.Models;
 using FinanceTrackerAPI.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinanceTrackerAPI.Controllers
 {
@@ -17,6 +18,25 @@ namespace FinanceTrackerAPI.Controllers
             _service = service;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Expense>>> GetExpenses()
+        {
+            try
+            {
+                var expenses = await _service.GetExpenses();
+                return Ok(expenses);
+            }
+            catch (HttpIOException)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Database error occurred while retrieving expenses.");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("An error occurred while retrieving expenses: " + ex.Message);
+            }
+        }
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<Expense>> GetExpense(int id)
         {

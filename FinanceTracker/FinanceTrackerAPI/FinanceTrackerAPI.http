@@ -11,3 +11,5 @@ Content-Length: <calculated length>
   "category": "Food",
   "paymentMethod": "Credit Card"
 }
+###
+GET http://localhost:5271/api/expenses HTTP/1.1
