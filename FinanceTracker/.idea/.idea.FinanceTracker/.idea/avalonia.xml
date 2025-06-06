@@ -3,6 +3,7 @@
   <component name="AvaloniaProject">
     <option name="projectPerEditor">
       <map>
+        <entry key="FinanceTracker/App.axaml" value="FinanceTracker/FinanceTracker.csproj" />
         <entry key="FinanceTracker/MainWindow.axaml" value="FinanceTracker/FinanceTracker.csproj" />
       </map>
     </option>
