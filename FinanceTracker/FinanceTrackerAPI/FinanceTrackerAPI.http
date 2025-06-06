@@ -1,6 +1,13 @@
-@FinanceTrackerAPI_HostAddress = http://localhost:5271
-
-GET {{FinanceTrackerAPI_HostAddress}}/weatherforecast/
+POST /api/expenses HTTP/1.1
+Host: localhost:5271
+Content-Type: application/json
 Accept: application/json
+Content-Length: <calculated length>
 
-###
+{
+  "expenseDate": "2025-06-06T12:00:00Z",
+  "description": "Lunch at cafe",
+  "amount": 15.75,
+  "category": "Food",
+  "paymentMethod": "Credit Card"
+}
