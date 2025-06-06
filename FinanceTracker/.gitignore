@@ -1,5 +1,7 @@
-bin/
-obj/
+FinanceTracker/bin/
+FinanceTracker/obj/
+FinanceTrackerAPI/bin/
+FinanceTrackerAPI/obj/
 .idea/
 .DS_Store
 
